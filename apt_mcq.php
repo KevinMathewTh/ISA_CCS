@@ -1,4 +1,10 @@
-<?php  
+<?php
+session_start();
+if(!isset($_SESSION['admin'])){
+    header("location: index.php");
+}
+else
+{  
 $connect = mysqli_connect("localhost", "root", "", "isaccs");
 if(isset($_POST["submit"]))
 {
@@ -25,6 +31,7 @@ if(isset($_POST["submit"]))
    echo "<script>alert('Import done');</script>";
   }
  }
+}
 }
 ?>  
 <!DOCTYPE html>  
