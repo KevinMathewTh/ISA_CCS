@@ -69,7 +69,7 @@ if(!isset($_SESSION['admin'])){
   <p><a href="">Evaluate</a></p>
   <?php
     
-    echo '<h3 ><a href="logout.php" class="btn btn-dark" style="width:55%;">Logout</a></h3></div>';
+    echo '<h3 ><a href="logoutadmin.php" class="btn btn-dark" style="width:55%;">Logout</a></h3></div>';
   
   ?>
     <!-- Optional JavaScript -->

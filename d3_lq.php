@@ -11,14 +11,9 @@ if(isset($_POST["submit"]))
    while($data = fgetcsv($handle))
    {
     $item1 = mysqli_real_escape_string($connect, $data[0]);  
-	$item2 = mysqli_real_escape_string($connect, $data[1]);
-	$item3 = mysqli_real_escape_string($connect, $data[2]);  
-	$item4 = mysqli_real_escape_string($connect, $data[3]);
-	$item5 = mysqli_real_escape_string($connect, $data[4]);  
-	$item6 = mysqli_real_escape_string($connect, $data[5]);
-	$item7 = mysqli_real_escape_string($connect, $data[6]);  
 	
-                $query = "INSERT into d1_mcqbank(id, question, opt_a, opt_b, opt_c, opt_d, ans) values('$item1','$item2','$item3','$item4','$item5','$item6','$item7')";
+	
+                $query = "INSERT into d3_lqbank(question) values('$item1')";
                 mysqli_query($connect, $query);
    }
    fclose($handle);
@@ -30,12 +25,12 @@ if(isset($_POST["submit"]))
 <!DOCTYPE html>  
 <html>  
  <head>  
-  <title>Tech Domain Question Import</title>
+  <title>Management Long Ans Question Import</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
  </head>  
  <body>  
-  <h3 align="center">Technical Domain Import Question Bank</h3><br />
+  <h3 align="center">Management Domain Import Long Answer Question Bank</h3><br />
   <form method="post" enctype="multipart/form-data">
    <div align="center">  
     <label>Select CSV File:</label>

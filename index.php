@@ -8,6 +8,7 @@
 ?>
 
 <?php
+$connect = mysqli_connect("localhost", "root", "", "isaccs");
 
 //index.php
 
@@ -135,16 +136,16 @@ https://templatemo.com/tm-535-softy-pinko
                         </a>
                         <div style="float:right; margin-top:auto;">
                         <?php
-                        if($login_button == '')
-                        {
-                        echo '<a href="test.php" class="btn btn-success" style="margin-top:20px; margin-right:50px;">Take Test</a>';
+                        // if($login_button == '')
+                        // {
+                        // echo '<a href="test.php" class="btn btn-success" style="margin-top:20px; margin-right:50px;">Take Test</a>';
                         
-                        }
-                        else
-                        {
+                        // }
+                        // else
+                        // {
                         // echo '<div>'.$login_button. '</div>';
-                        }
-                        ?>
+                        // }
+                        // ?>
                         </div>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -179,17 +180,46 @@ https://templatemo.com/tm-535-softy-pinko
                             <?php
    if($login_button == '' && $error=="")
    {
-    echo '<div class="panel-body">';
-    echo '<img src="'.$_SESSION["user_image"].'" class="img-responsive img-circle img-thumbnail" />';
-    echo '<h3 style="padding:15px;"><b>Hey , </b> '.$_SESSION['user_first_name'].' '.$_SESSION['user_last_name'].'</h3>';
-    // echo '<h3><b>Email :</b> '.$_SESSION['user_email_address'].'</h3>';
-    echo '<h3 ><a href="test.php" style="padding:15px; width:60%;" class="btn btn-info">Take Test</a></h3></div>';
-    echo '<h3 ><a href="logout.php" class="btn btn-dark" style="width:55%;">Logout</a></h3></div>';
+    
 
-    //connect to DB and 
-   }
-   else
-   {
+    //connect to DB and insert the data in the table
+    $usremail=$_SESSION['user_email_address'];
+    $sql = "SELECT email FROM users WHERE email='$usremail'";
+    $result = $connect->query($sql);
+
+if ($result->num_rows > 0) {
+  // Do Nothing. // Just Display
+            echo '<div class="panel-body">';
+            echo '<img src="'.$_SESSION["user_image"].'" class="img-responsive img-circle img-thumbnail" />';
+            echo '<h3 style="padding:15px;"><b>Hey , </b> '.$_SESSION['user_first_name'].' '.$_SESSION['user_last_name'].'</h3>';
+            // echo '<h3><b>Email :</b> '.$_SESSION['user_email_address'].'</h3>';
+            echo '<h3 ><a href="test.php" style="padding:15px; width:60%;" class="btn btn-info">Take Test</a></h3></div>';
+            echo '<h3 ><a href="logout.php" class="btn btn-dark" style="width:55%;">Logout</a></h3></div>';
+
+}
+else {
+  //Insert into table
+    $f_name=$_SESSION['user_first_name'];
+    $l_name=$_SESSION['user_last_name'];
+    $sql = "INSERT INTO users (f_name, l_name, email, apt, d1, d2, d3) VALUES ('$f_name', '$l_name', '$usremail', 0, 0, 0 ,0)";
+        if ($connect->query($sql) === TRUE) {
+            echo '<div class="panel-body">';
+            echo '<img src="'.$_SESSION["user_image"].'" class="img-responsive img-circle img-thumbnail" />';
+            echo '<h3 style="padding:15px;"><b>Hey , </b> '.$_SESSION['user_first_name'].' '.$_SESSION['user_last_name'].'</h3>';
+            // echo '<h3><b>Email :</b> '.$_SESSION['user_email_address'].'</h3>';
+            echo '<h3 ><a href="test.php" style="padding:15px; width:60%;" class="btn btn-info">Take Test</a></h3></div>';
+            echo '<h3 ><a href="logout.php" class="btn btn-dark" style="width:55%;">Logout</a></h3></div>';
+        }
+        else {
+        echo "Error: " . $sql . "<br>" . $connect->error;
+}
+
+
+    }
+$connect->close();
+    } 
+    else
+    {
     echo '<div align="center"><p>'.$login_button . '</p></div>';
     if($error!="")
     {
